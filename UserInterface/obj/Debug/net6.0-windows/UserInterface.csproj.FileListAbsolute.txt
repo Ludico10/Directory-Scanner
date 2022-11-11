@@ -1,0 +1,6 @@
+C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\obj\Debug\net6.0-windows\UserInterface.csproj.AssemblyReference.cache
+C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\obj\Debug\net6.0-windows\UserInterface.csproj.ResolveComReference.cache
+C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\obj\Debug\net6.0-windows\MainWindow.g.cs
+C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\obj\Debug\net6.0-windows\App.g.cs
+C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\obj\Debug\net6.0-windows\UserInterface_MarkupCompile.cache
+C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\obj\Debug\net6.0-windows\UserInterface_MarkupCompile.lref
