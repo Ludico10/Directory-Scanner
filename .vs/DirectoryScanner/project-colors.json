@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "3c7ae894-9651-4874-b89c-bf9a195f92f8": {
+      "ProjectGuid": "3c7ae894-9651-4874-b89c-bf9a195f92f8",
+      "DisplayName": "DirectoryScanner",
+      "ColorIndex": 0
+    },
+    "75639a18-a5c5-4727-80d8-a2aae1a74d37": {
+      "ProjectGuid": "75639a18-a5c5-4727-80d8-a2aae1a74d37",
+      "DisplayName": "UserInterface",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

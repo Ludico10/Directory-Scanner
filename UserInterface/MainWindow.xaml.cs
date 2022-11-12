@@ -24,22 +24,7 @@ namespace UserInterface
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Forms.Integration.WindowsFormsHost host =
-                new System.Windows.Forms.Integration.WindowsFormsHost();
-
-            // Create the MaskedTextBox control.
-            FolderBrowserDialog viewButton = new FolderBrowserDialog();
-
-            // Assign the MaskedTextBox control as the host control's child.
-            host.Child = viewButton;
-
-            // Add the interop host control to the Grid
-            // control's collection of child controls.
-            this.grid1.Children.Add(host);
+            DataContext = new ViewModel.ViewModel();
         }
     }
 }

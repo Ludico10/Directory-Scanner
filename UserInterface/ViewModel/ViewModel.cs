@@ -8,20 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using UserInterface.Model;
 
 namespace UserInterface.ViewModel
 {
     public class ViewModel : INotifyPropertyChanged
     {
-        private string? path;
-        private DirScanner scanner;
+        private string? path = null;
+        private DirScanner? scanner;
         private int threadCnt = 5;
         private bool inWork = false;
-        private DirectoryScanner.TreeNode root;
+        private ModelNode? root;
 
-        private Command ChooseCommand;
-        private Command SearchCommand;
-        private Command StopCommand;
+        public Command ChooseCommand { get; }
+        public Command SearchCommand { get; }
+        public Command StopCommand { get;  }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string? property = null)
@@ -34,7 +35,9 @@ namespace UserInterface.ViewModel
 
         public string? Path { get { return path; } set { path = value; OnPropertyChanged("Path"); } }
         public bool InWork { get { return inWork; } set { inWork = value; OnPropertyChanged("InWork");} }
-        public DirectoryScanner.TreeNode Root { get { return root; } set { root = value; OnPropertyChanged("Root"); } }
+
+        public bool NotInWork { get { return !inWork; } set { inWork = !value; OnPropertyChanged("NotInWork"); } }
+        public ModelNode? Root { get { return root; } set { root = value; OnPropertyChanged("Root"); } }
         public int ThreadCnt { get { return threadCnt; } set { threadCnt = value; OnPropertyChanged("ThreadCnt"); } }
 
         public ViewModel()
@@ -52,7 +55,7 @@ namespace UserInterface.ViewModel
                 if (path != null)
                 {
                     inWork = true;
-                    root = scanner.Scan(path);
+                    root = ModelTree.TreeConvert(scanner.Scan(path));
                     inWork = false;
                 }
             }));
@@ -61,7 +64,7 @@ namespace UserInterface.ViewModel
             {
                 if (inWork && scanner != null)
                 {
-                    root = scanner.Stop();
+                    scanner.Stop();
                     inWork = false;
                 }
             });

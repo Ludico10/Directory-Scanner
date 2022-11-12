@@ -3,14 +3,47 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UserInterface"
+        xmlns:local="clr-namespace:UserInterface" xmlns:viewmodel="clr-namespace:UserInterface.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ViewModel}"
         mc:Ignorable="d"
-        Title="Directory Scanner" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="Directory Scanner" Height="450" Width="800">
     <Grid Name="grid1" Background="#FFA1A1A1">
-        <TreeView Margin="0,28,0,0"/>
-        <TextBox HorizontalAlignment="Left" Margin="132,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="427" Text="введите путь"/>
-        <Label Content="Директория:" HorizontalAlignment="Left" Margin="35,1,0,0" VerticalAlignment="Top" Height="26" Width="97" FontWeight="Bold"/>
-        <Button Content="Сканировать" HorizontalAlignment="Left" Margin="579,4,0,0" VerticalAlignment="Top" Width="94"/>
-        <Button Content="Отмена" HorizontalAlignment="Left" Margin="692,4,0,0" VerticalAlignment="Top" Width="67"/>
+        <Button Command="{Binding SearchCommand, Mode=OneWay}"
+                Content="Сканировать" 
+                IsEnabled="{Binding NotInWork}"
+                HorizontalAlignment="Left" 
+                Margin="140,4,0,0" 
+                VerticalAlignment="Top" 
+                Width="94"/>
+        <Button Command="{Binding StopCommand, Mode=OneWay}" 
+                Content="Отмена" 
+                IsEnabled="{Binding InWork}"
+                HorizontalAlignment="Left" 
+                Margin="264,4,0,0" 
+                VerticalAlignment="Top" 
+                Width="67"/>
+        <Button Command="{Binding ChooseCommand}" 
+                Content="Обзор" 
+                IsEnabled="{Binding NotInWork}"
+                HorizontalAlignment="Left" 
+                Margin="44,4,0,0" 
+                VerticalAlignment="Top" 
+                Width="70"/>
+        <ScrollViewer x:Name="scvTreeViev" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <TreeView ItemsSource="{Binding Root.Children}" Margin="0,28,0,0">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="20" Height="15" Source="{Binding Path=ImagePath}"/>
+                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Text=" ( "/>
+                            <TextBlock Text="{Binding AbsoluteSize}"/>
+                            <TextBlock Text=" b, "/>
+                            <TextBlock Text="{Binding RelativeSize, StringFormat=N2}"/>
+                            <TextBlock Text="% )"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </ScrollViewer>
     </Grid>
 </Window>

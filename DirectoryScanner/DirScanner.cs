@@ -8,9 +8,7 @@ namespace DirectoryScanner
         private int maxThreadCnt;
         private ConcurrentQueue<Task> queue;
         private SemaphoreSlim semaphore;
-
-        private void OnPropertyChanged([CallerMemberName] string? property = null) =>
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        private CancellationTokenSource cts;
 
         public DirScanner(int threadMax)
         {
@@ -19,6 +17,7 @@ namespace DirectoryScanner
                 maxThreadCnt = threadMax;
                 queue = new ConcurrentQueue<Task>();
                 semaphore = new SemaphoreSlim(maxThreadCnt, maxThreadCnt);
+                cts = new CancellationTokenSource();
             }
             else throw new ArgumentOutOfRangeException($"Unable to create { threadMax } threds");
         }
@@ -29,13 +28,13 @@ namespace DirectoryScanner
                 throw new ArgumentException($"There is not directory { source }");
 
             TreeNode root = new TreeNode(true, source, 0);
-            Task scanTask = new Task(FileScaner, root);
+            Task scanTask = new Task(FileScaner, root, cts.Token);
             queue.Enqueue(scanTask);
             while (semaphore.CurrentCount != maxThreadCnt || !queue.IsEmpty)
             {
                 if (queue.TryDequeue(out scanTask))
                 {
-                    semaphore.Wait();
+                    semaphore.Wait(cts.Token);
                     scanTask.Start();
                 }
             }
@@ -43,13 +42,16 @@ namespace DirectoryScanner
             return root;
         }
 
-        public TreeNode Stop()
+        public void Stop()
         {
-
+            cts.Cancel();
         }
 
         private void FileScaner(object context)
         {
+            CancellationToken token = cts.Token;
+            token.ThrowIfCancellationRequested();
+
             try
             {
                 TreeNode parent = (TreeNode)context;
