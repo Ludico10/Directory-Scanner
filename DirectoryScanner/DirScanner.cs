@@ -24,6 +24,7 @@ namespace DirectoryScanner
 
         public TreeNode Scan(string source)
         {
+            source = Path.GetFullPath(source);
             if (!Directory.Exists(source))
                 throw new ArgumentException($"There is not directory { source }");
 
@@ -59,18 +60,22 @@ namespace DirectoryScanner
                 FileSystemInfo[] fileInfos = rootDirInfo.GetFileSystemInfos();
                 if (parent.children != null)
                 {
-                    foreach (FileInfo fileInfo in fileInfos)
+                    foreach (FileSystemInfo fileInfo in fileInfos)
                     {
-                        TreeNode fileChild = new TreeNode(false, fileInfo.Name, fileInfo.Length);
-                        parent.children.Add(fileChild);
-                    }
-                    foreach (DirectoryInfo dirInfo in fileInfos)
-                    {
-                        TreeNode dirChild = new TreeNode(true, dirInfo.Name, 0);
-                        parent.children.Add(dirChild);
+                        if ((fileInfo.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
+                        {
+                            TreeNode dirChild = new TreeNode(true, fileInfo.FullName, 0);
+                            parent.children.Add(dirChild);
 
-                        Task task = new Task(FileScaner, dirChild);
-                        queue.Enqueue(task);
+                            Task task = new Task(FileScaner, dirChild);
+                            queue.Enqueue(task);
+                        }
+                        else
+                        {
+                            FileInfo file = (FileInfo)fileInfo;
+                            TreeNode fileChild = new TreeNode(false, fileInfo.FullName, file.Length);
+                            parent.children.Add(fileChild);
+                        }
                     }
                 }
             }

@@ -3,31 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:UserInterface" xmlns:viewmodel="clr-namespace:UserInterface.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ViewModel}"
+        xmlns:local="clr-namespace:UserInterface" 
+        xmlns:viewmodel="clr-namespace:UserInterface.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ViewModel}"
         mc:Ignorable="d"
-        Title="Directory Scanner" Height="450" Width="800">
+        Title="Directory Scanner" Height="450" Width="800" ResizeMode="NoResize">
     <Grid Name="grid1" Background="#FFA1A1A1">
-        <Button Command="{Binding SearchCommand, Mode=OneWay}"
-                Content="Сканировать" 
-                IsEnabled="{Binding NotInWork}"
-                HorizontalAlignment="Left" 
-                Margin="140,4,0,0" 
-                VerticalAlignment="Top" 
-                Width="94"/>
-        <Button Command="{Binding StopCommand, Mode=OneWay}" 
-                Content="Отмена" 
-                IsEnabled="{Binding InWork}"
-                HorizontalAlignment="Left" 
-                Margin="264,4,0,0" 
-                VerticalAlignment="Top" 
-                Width="67"/>
-        <Button Command="{Binding ChooseCommand}" 
-                Content="Обзор" 
-                IsEnabled="{Binding NotInWork}"
-                HorizontalAlignment="Left" 
-                Margin="44,4,0,0" 
-                VerticalAlignment="Top" 
-                Width="70"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <ScrollViewer x:Name="scvTreeViev" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <TreeView ItemsSource="{Binding Root.Children}" Margin="0,28,0,0">
                 <TreeView.ItemTemplate>
@@ -45,5 +28,26 @@
                 </TreeView.ItemTemplate>
             </TreeView>
         </ScrollViewer>
+        <Button Command="{Binding SearchCommand, Mode=OneWay}"
+                Content="Сканировать" 
+                IsEnabled="{Binding NotInWork}"
+                HorizontalAlignment="Left" 
+                Margin="140,4,0,0" 
+                VerticalAlignment="Top" 
+                Width="94"/>
+        <Button Command="{Binding StopCommand, Mode=OneWay}" 
+                Content="Отмена" 
+                IsEnabled="{Binding InWork}"
+                HorizontalAlignment="Left" 
+                Margin="264,4,0,0" 
+                VerticalAlignment="Top" 
+                Width="67"/>
+        <Button Content="Обзор" 
+                IsEnabled="{Binding NotInWork}"
+                HorizontalAlignment="Left" 
+                Margin="44,4,0,0" 
+                VerticalAlignment="Top" 
+                Width="70" 
+                Command="{Binding ChooseCommand, Mode=OneWay}"/>
     </Grid>
 </Window>

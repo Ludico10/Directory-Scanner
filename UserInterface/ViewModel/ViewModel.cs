@@ -20,9 +20,9 @@ namespace UserInterface.ViewModel
         private bool inWork = false;
         private ModelNode? root;
 
-        public Command ChooseCommand { get; }
-        public Command SearchCommand { get; }
-        public Command StopCommand { get;  }
+        public RelayCommand ChooseCommand { get; }
+        public RelayCommand SearchCommand { get; }
+        public RelayCommand StopCommand { get;  }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string? property = null)
@@ -35,21 +35,20 @@ namespace UserInterface.ViewModel
 
         public string? Path { get { return path; } set { path = value; OnPropertyChanged("Path"); } }
         public bool InWork { get { return inWork; } set { inWork = value; OnPropertyChanged("InWork");} }
-
         public bool NotInWork { get { return !inWork; } set { inWork = !value; OnPropertyChanged("NotInWork"); } }
         public ModelNode? Root { get { return root; } set { root = value; OnPropertyChanged("Root"); } }
         public int ThreadCnt { get { return threadCnt; } set { threadCnt = value; OnPropertyChanged("ThreadCnt"); } }
 
         public ViewModel()
         {
-            ChooseCommand = new Command(obj =>
+            ChooseCommand = new RelayCommand(obj =>
             {
                 FolderBrowserDialog folderView = new FolderBrowserDialog();
                 if (folderView.ShowDialog() == DialogResult.OK)
                     path = folderView.SelectedPath;
             });
 
-            SearchCommand = new Command(obj => Task.Run(() =>
+            SearchCommand = new RelayCommand(obj => Task.Run(() =>
             {
                 scanner = new DirScanner(threadCnt);
                 if (path != null)
@@ -60,7 +59,7 @@ namespace UserInterface.ViewModel
                 }
             }));
 
-            StopCommand = new Command(obj =>
+            StopCommand = new RelayCommand(obj =>
             {
                 if (inWork && scanner != null)
                 {

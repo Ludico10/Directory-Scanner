@@ -19,10 +19,11 @@
             if (children != null)
             {
                 size = 0;
-                foreach (TreeNode cild in children)
-                    size += cild.Resize();
-                foreach (TreeNode cild in children)
-                    cild.relativeSize = cild.size / size;
+                foreach (TreeNode child in children)
+                    size += child.Resize();
+                foreach (TreeNode child in children)
+                    if (size > 0) child.relativeSize = child.size / size;
+                    else child.relativeSize = 1;
             }
             return size;
         }
