@@ -11,10 +11,18 @@ namespace DirScannerTests
             fileStream.Write(new byte[size]);
         }
 
+        public static TreeNode CreateEmptyDir(string path)
+        {
+            path = Path.GetFullPath(path);
+            if (Directory.Exists(path)) Directory.Delete(path, true);
+            Directory.CreateDirectory(path);
+
+            return new TreeNode(true, path, 0);
+        }
+
         public static TreeNode CreateOneLayerDir(string path)
         {
             path = Path.GetFullPath(path);
-
             if (Directory.Exists(path)) Directory.Delete(path, true);
             Directory.CreateDirectory(path);
 
@@ -30,6 +38,23 @@ namespace DirScannerTests
                     res.children.Add(new TreeNode(false, filePath, fileSize));
             }
             return res;
+        }
+
+        public static TreeNode CreateMultilayerDir(string path, int layer, int limit)
+        {
+            path = Path.GetFullPath(path);
+            if (Directory.Exists(path)) Directory.Delete(path, true);
+            Directory.CreateDirectory(path);
+
+            if (layer < limit)
+            {
+                TreeNode res = new TreeNode(true, path, limit);
+                if (res.children != null)
+                    for (int i = 0; i < layer; i++)
+                        res.children.Add(CreateMultilayerDir($"{path}\\{i}", layer + 1, limit));
+                return res;
+            }
+            else return CreateOneLayerDir(path);
         }
     }
 }

@@ -4,7 +4,7 @@
     {
         public string name;
         public long size;
-        public double relativeSize;
+        public double relativeSize = 1;
         public List<TreeNode>? children = null;
 
         public TreeNode(bool isDir, string name, long size)
@@ -22,7 +22,7 @@
                 foreach (TreeNode child in children)
                     size += child.Resize();
                 foreach (TreeNode child in children)
-                    if (size > 0) child.relativeSize = child.size / size;
+                    if (size > 0) child.relativeSize = (double)child.size / (double)size;
                     else child.relativeSize = 1;
             }
             return size;

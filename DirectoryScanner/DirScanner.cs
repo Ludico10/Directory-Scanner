@@ -29,15 +29,19 @@ namespace DirectoryScanner
                 throw new ArgumentException($"There is not directory { source }");
 
             TreeNode root = new TreeNode(true, source, 0);
-            Task scanTask = new Task(FileScaner, root, cts.Token);
+            Task? scanTask = new Task(FileScaner!, root, cts.Token);
             queue.Enqueue(scanTask);
             while (semaphore.CurrentCount != maxThreadCnt || !queue.IsEmpty)
             {
-                if (queue.TryDequeue(out scanTask))
+                try
                 {
-                    semaphore.Wait(cts.Token);
-                    scanTask.Start();
+                    if (queue.TryDequeue(out scanTask))
+                    {
+                        semaphore.Wait(cts.Token);
+                        scanTask.Start();
+                    }
                 }
+                catch { }
             }
             root.Resize();
             return root;
@@ -62,19 +66,22 @@ namespace DirectoryScanner
                 {
                     foreach (FileSystemInfo fileInfo in fileInfos)
                     {
-                        if ((fileInfo.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
+                        if (fileInfo.LinkTarget == null)
                         {
-                            TreeNode dirChild = new TreeNode(true, fileInfo.FullName, 0);
-                            parent.children.Add(dirChild);
+                            if ((fileInfo.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
+                            {
+                                TreeNode dirChild = new TreeNode(true, fileInfo.FullName, 0);
+                                parent.children.Add(dirChild);
 
-                            Task task = new Task(FileScaner, dirChild);
-                            queue.Enqueue(task);
-                        }
-                        else
-                        {
-                            FileInfo file = (FileInfo)fileInfo;
-                            TreeNode fileChild = new TreeNode(false, fileInfo.FullName, file.Length);
-                            parent.children.Add(fileChild);
+                                Task task = new Task(FileScaner!, dirChild);
+                                queue.Enqueue(task);
+                            }
+                            else
+                            {
+                                FileInfo file = (FileInfo)fileInfo;
+                                TreeNode fileChild = new TreeNode(false, fileInfo.FullName, file.Length);
+                                parent.children.Add(fileChild);
+                            }
                         }
                     }
                 }

@@ -8,15 +8,12 @@
         mc:Ignorable="d"
         Title="Directory Scanner" Height="450" Width="800" ResizeMode="NoResize">
     <Grid Name="grid1" Background="#FFA1A1A1">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
         <ScrollViewer x:Name="scvTreeViev" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <TreeView ItemsSource="{Binding Root.Children}" Margin="0,28,0,0">
                 <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                         <StackPanel Orientation="Horizontal">
-                            <Image Width="20" Height="15" Source="{Binding Path=ImagePath}"/>
+                            <Image Width="20" Height="15" Source="{Binding ImagePath}"/>
                             <TextBlock Text="{Binding Name}"/>
                             <TextBlock Text=" ( "/>
                             <TextBlock Text="{Binding AbsoluteSize}"/>
@@ -28,26 +25,29 @@
                 </TreeView.ItemTemplate>
             </TreeView>
         </ScrollViewer>
-        <Button Command="{Binding SearchCommand, Mode=OneWay}"
+        <TextBlock Text="{Binding Path}"
+                   Margin="19,6,487,0"
+                   VerticalAlignment="Top"/>
+        <Button Command="{Binding SearchCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                 Content="Сканировать" 
-                IsEnabled="{Binding NotInWork}"
+                IsEnabled="{Binding NotInWork, UpdateSourceTrigger=PropertyChanged}"
                 HorizontalAlignment="Left" 
-                Margin="140,4,0,0" 
+                Margin="430,4,0,0" 
                 VerticalAlignment="Top" 
                 Width="94"/>
-        <Button Command="{Binding StopCommand, Mode=OneWay}" 
+        <Button Command="{Binding StopCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                 Content="Отмена" 
-                IsEnabled="{Binding InWork}"
+                IsEnabled="{Binding InWork, UpdateSourceTrigger=PropertyChanged}"
                 HorizontalAlignment="Left" 
-                Margin="264,4,0,0" 
+                Margin="544,4,0,0" 
                 VerticalAlignment="Top" 
                 Width="67"/>
         <Button Content="Обзор" 
-                IsEnabled="{Binding NotInWork}"
+                IsEnabled="{Binding NotInWork, UpdateSourceTrigger=PropertyChanged}"
                 HorizontalAlignment="Left" 
-                Margin="44,4,0,0" 
+                Margin="339,4,0,0" 
                 VerticalAlignment="Top" 
                 Width="70" 
-                Command="{Binding ChooseCommand, Mode=OneWay}"/>
+                Command="{Binding ChooseCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </Window>

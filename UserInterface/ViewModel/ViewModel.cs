@@ -33,11 +33,11 @@ namespace UserInterface.ViewModel
             }
         }
 
-        public string? Path { get { return path; } set { path = value; OnPropertyChanged("Path"); } }
-        public bool InWork { get { return inWork; } set { inWork = value; OnPropertyChanged("InWork");} }
-        public bool NotInWork { get { return !inWork; } set { inWork = !value; OnPropertyChanged("NotInWork"); } }
-        public ModelNode? Root { get { return root; } set { root = value; OnPropertyChanged("Root"); } }
-        public int ThreadCnt { get { return threadCnt; } set { threadCnt = value; OnPropertyChanged("ThreadCnt"); } }
+        public string? Path { get { return path; } set { path = value; OnPropertyChanged(nameof(Path)); } }
+        public bool InWork { get { return inWork; } set { inWork = value; OnPropertyChanged(nameof(InWork));} }
+        public bool NotInWork { get { return !inWork; } set { inWork = !value; OnPropertyChanged(nameof(NotInWork)); } }
+        public ModelNode? Root { get { return root; } set { root = value; OnPropertyChanged(nameof(Root)); } }
+        public int ThreadCnt { get { return threadCnt; } set { threadCnt = value; OnPropertyChanged(nameof(ThreadCnt)); } }
 
         public ViewModel()
         {
@@ -45,17 +45,17 @@ namespace UserInterface.ViewModel
             {
                 FolderBrowserDialog folderView = new FolderBrowserDialog();
                 if (folderView.ShowDialog() == DialogResult.OK)
-                    path = folderView.SelectedPath;
+                    Path = folderView.SelectedPath;
             });
 
             SearchCommand = new RelayCommand(obj => Task.Run(() =>
             {
                 scanner = new DirScanner(threadCnt);
-                if (path != null)
+                if (Path != null)
                 {
-                    inWork = true;
-                    root = ModelTree.TreeConvert(scanner.Scan(path));
-                    inWork = false;
+                    InWork = true;
+                    Root = ModelNode.TreeConvert(scanner.Scan(Path));
+                    InWork = false;
                 }
             }));
 
@@ -64,7 +64,7 @@ namespace UserInterface.ViewModel
                 if (inWork && scanner != null)
                 {
                     scanner.Stop();
-                    inWork = false;
+                    InWork = false;
                 }
             });
         }
