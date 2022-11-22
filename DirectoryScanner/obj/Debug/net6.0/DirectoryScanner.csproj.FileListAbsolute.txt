@@ -1,6 +1,5 @@
 C:\Users\eugen\source\repos\DirectoryScanner\DirectoryScanner\bin\Debug\net6.0\DirectoryScanner.deps.json
 C:\Users\eugen\source\repos\DirectoryScanner\DirectoryScanner\bin\Debug\net6.0\DirectoryScanner.dll
-C:\Users\eugen\source\repos\DirectoryScanner\DirectoryScanner\bin\Debug\net6.0\ref\DirectoryScanner.dll
 C:\Users\eugen\source\repos\DirectoryScanner\DirectoryScanner\bin\Debug\net6.0\DirectoryScanner.pdb
 C:\Users\eugen\source\repos\DirectoryScanner\DirectoryScanner\obj\Debug\net6.0\DirectoryScanner.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\eugen\source\repos\DirectoryScanner\DirectoryScanner\obj\Debug\net6.0\DirectoryScanner.AssemblyInfoInputs.cache
@@ -10,3 +9,4 @@ C:\Users\eugen\source\repos\DirectoryScanner\DirectoryScanner\obj\Debug\net6.0\D
 C:\Users\eugen\source\repos\DirectoryScanner\DirectoryScanner\obj\Debug\net6.0\ref\DirectoryScanner.dll
 C:\Users\eugen\source\repos\DirectoryScanner\DirectoryScanner\obj\Debug\net6.0\DirectoryScanner.pdb
 C:\Users\eugen\source\repos\DirectoryScanner\DirectoryScanner\obj\Debug\net6.0\DirectoryScanner.csproj.AssemblyReference.cache
+C:\Users\eugen\source\repos\DirectoryScanner\DirectoryScanner\obj\Debug\net6.0\refint\DirectoryScanner.dll

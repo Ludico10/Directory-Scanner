@@ -7,7 +7,6 @@ C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\bin\Debug\net6.0-wind
 C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\bin\Debug\net6.0-windows\UserInterface.deps.json
 C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\bin\Debug\net6.0-windows\UserInterface.runtimeconfig.json
 C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\bin\Debug\net6.0-windows\UserInterface.dll
-C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\bin\Debug\net6.0-windows\ref\UserInterface.dll
 C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\bin\Debug\net6.0-windows\UserInterface.pdb
 C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\bin\Debug\net6.0-windows\DirectoryScanner.dll
 C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\bin\Debug\net6.0-windows\DirectoryScanner.pdb
@@ -22,3 +21,4 @@ C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\obj\Debug\net6.0-wind
 C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\obj\Debug\net6.0-windows\ref\UserInterface.dll
 C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\obj\Debug\net6.0-windows\UserInterface.pdb
 C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\obj\Debug\net6.0-windows\UserInterface.genruntimeconfig.cache
+C:\Users\eugen\source\repos\DirectoryScanner\UserInterface\obj\Debug\net6.0-windows\refint\UserInterface.dll

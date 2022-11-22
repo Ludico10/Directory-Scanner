@@ -31,17 +31,13 @@ namespace DirectoryScanner
             TreeNode root = new TreeNode(true, source, 0);
             Task? scanTask = new Task(FileScaner!, root, cts.Token);
             queue.Enqueue(scanTask);
-            while (semaphore.CurrentCount != maxThreadCnt || !queue.IsEmpty)
+            while ((semaphore.CurrentCount != maxThreadCnt || !queue.IsEmpty) && !cts.IsCancellationRequested)
             {
-                try
+                if (queue.TryDequeue(out scanTask))
                 {
-                    if (queue.TryDequeue(out scanTask))
-                    {
-                        semaphore.Wait(cts.Token);
-                        scanTask.Start();
-                    }
+                    semaphore.Wait(cts.Token);
+                    scanTask.Start();
                 }
-                catch { }
             }
             root.Resize();
             return root;
@@ -54,9 +50,6 @@ namespace DirectoryScanner
 
         private void FileScaner(object context)
         {
-            CancellationToken token = cts.Token;
-            token.ThrowIfCancellationRequested();
-
             try
             {
                 TreeNode parent = (TreeNode)context;
@@ -66,6 +59,8 @@ namespace DirectoryScanner
                 {
                     foreach (FileSystemInfo fileInfo in fileInfos)
                     {
+                        cts.Token.ThrowIfCancellationRequested();
+
                         if (fileInfo.LinkTarget == null)
                         {
                             if ((fileInfo.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
@@ -86,6 +81,7 @@ namespace DirectoryScanner
                     }
                 }
             }
+            catch { }
             finally
             {
                 semaphore.Release();

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DirectoryScanner", "Directo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserInterface", "UserInterface\UserInterface.csproj", "{75639A18-A5C5-4727-80D8-A2AAE1A74D37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirScannerTests", "DirScannerTests\DirScannerTests.csproj", "{530A7C50-19A1-4535-B68C-672C33AE09EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScannerTests", "ScannerTests\ScannerTests.csproj", "{035B04B2-3EF2-4B7C-B0D5-13E189C2EB43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{75639A18-A5C5-4727-80D8-A2AAE1A74D37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75639A18-A5C5-4727-80D8-A2AAE1A74D37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75639A18-A5C5-4727-80D8-A2AAE1A74D37}.Release|Any CPU.Build.0 = Release|Any CPU
-		{530A7C50-19A1-4535-B68C-672C33AE09EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{530A7C50-19A1-4535-B68C-672C33AE09EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{530A7C50-19A1-4535-B68C-672C33AE09EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{530A7C50-19A1-4535-B68C-672C33AE09EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{035B04B2-3EF2-4B7C-B0D5-13E189C2EB43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{035B04B2-3EF2-4B7C-B0D5-13E189C2EB43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{035B04B2-3EF2-4B7C-B0D5-13E189C2EB43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{035B04B2-3EF2-4B7C-B0D5-13E189C2EB43}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

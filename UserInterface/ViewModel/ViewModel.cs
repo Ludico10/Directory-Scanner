@@ -16,7 +16,7 @@ namespace UserInterface.ViewModel
     {
         private string? path = null;
         private DirScanner? scanner;
-        private int threadCnt = 5;
+        private int threadCnt = 2;
         private bool inWork = false;
         private ModelNode? root;
 
